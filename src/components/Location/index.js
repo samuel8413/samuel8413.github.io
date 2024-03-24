@@ -6,7 +6,7 @@ const Location = () => {
       <div className={styles.content}>
         <p className={styles.contentTitle}>Lugar de la celebración:</p>
         <p className={styles.contentLabel}>
-          Carreterea Huejutla de Reyes - Pachuca, KM 36.
+          Carretera Huejutla de Reyes - Pachuca, KM 36.
         </p>
         <p className={styles.contentLabel}>Atotonilco el Grande, Hidalgo</p>
         <p className={styles.contentLabel}>CP: 43320</p>
