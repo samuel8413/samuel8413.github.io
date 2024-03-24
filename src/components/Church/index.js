@@ -8,7 +8,7 @@ const Church = () => {
         <p className={styles.contentLabel}>Ex Convento De San Agustín</p>
         <p className={styles.contentLabel}>Lic. Jorge Viesca Palma S, Centro</p>
         <p className={styles.contentLabel}>Atotonilco el Grande, Hidalgo</p>
-        <p className={styles.contentLabel}>CP: 43330</p>
+        <p className={styles.contentLabel}>CP: 43300</p>
       </div>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14969.51634811539!2d-98.67394920885957!3d20.284570198956853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d10ff251acf843%3A0x5d6b4b7c43690dfd!2sEx%20Convento%20De%20San%20Agust%C3%ADn!5e0!3m2!1ses-419!2smx!4v1711186846249!5m2!1ses-419!2smx"
