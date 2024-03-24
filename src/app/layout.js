@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Ven a mi fiesta!",
+  title: "Invitación a mi fiesta | Diana",
   description: "Invitación a mi fiesta",
 };
 

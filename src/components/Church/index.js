@@ -22,7 +22,7 @@ const Church = () => {
         <p className={styles.contentLabel}>Ex Convento De San Agustín</p>
         <p className={styles.contentLabel}>Lic. Jorge Viesca Palma S, Centro</p>
         <p className={styles.contentLabel}>Atotonilco el Grande, Hidalgo</p>
-        <p className={styles.contentLabel}>CP: 43330</p>
+        <p className={styles.contentLabel}>CP: 43300</p>
       </div>
     </div>
   );
