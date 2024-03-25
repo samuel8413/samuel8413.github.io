@@ -13,8 +13,8 @@ const Hotel = () => {
 const Hotels = () => {
   return (
     <ul className={styles.container}>
-      {[0, 1, 2].map(() => (
-        <Hotel />
+      {[0, 1, 2].map((id) => (
+        <Hotel key={id} />
       ))}
     </ul>
   );
