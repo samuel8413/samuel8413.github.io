@@ -29,6 +29,7 @@ const HeadSection = () => {
               alignContent: "center",
               borderLeft: "3px solid #bca459",
               borderRight: "3px solid #bca459",
+              display: 'flex',
               height: "100%",
               margin: "12px",
               width: "100%",

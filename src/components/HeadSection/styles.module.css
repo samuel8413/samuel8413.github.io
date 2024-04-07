@@ -90,6 +90,7 @@
   justify-items: center;
   margin: 18px auto;
   max-width: 600px;
+  row-gap: 12px;
   width: 80%;
 }
 
