@@ -21,7 +21,7 @@ const HeadSection = () => {
         </p>
         <div className={styles.tableWrapper}>
           <span className={styles.secondaryText} style={{ margin: "0 12px" }}>
-            Hora por confirmar
+            13:00 p.m.
           </span>
           <span
             className={styles.secondaryText}
