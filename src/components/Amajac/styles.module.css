@@ -50,7 +50,7 @@
     flex-direction: column;
   }
 
-  .container iframe {
+  .image {
     height: 50vh;
     margin: 0;
     width: 100%;
@@ -58,9 +58,5 @@
 
   .label {
     max-width: 100%;
-  }
-
-  .image {
-    width: 100%;
   }
 }
