@@ -1,0 +1,87 @@
+.la-fuente-650 {
+  background-image: url("../../assets/images/la-fuente-650.jpg");
+}
+
+.la-fuente-850 {
+  background-image: url("../../assets/images/la-fuente-850.jpg");
+}
+
+.marquecita {
+  background-image: url("../../assets/images/marquecita.jpg");
+}
+
+.la-fuente-650,
+.la-fuente-850,
+.marquecita {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 100%;
+  height: 100%;
+  max-height: 150px;
+  max-width: 150px;
+  width: 100%;
+}
+
+.churchImageWrapper {
+  align-items: flex-start;
+  display: flex;
+  height: calc((100vw - 24px) / 3);
+  justify-content: center;
+  margin: 0 auto;
+  max-height: 150px;
+  max-width: 150px;
+  width: calc((100vw - 24px) / 3);
+}
+
+.container {
+  align-items: flex-start;
+  background-color: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 50px 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.hotel {
+  box-sizing: border-box;
+  list-style: none;
+  margin: 18px auto;
+  padding: 0 50px;
+  width: calc((100vw - 24px) / 3);
+}
+
+.location {
+  color: #907627;
+  display: block;
+  font-family: "Arsenal", sans-serif;
+  margin: 12px 0 0 0;
+}
+
+.text {
+  color: #3e524e;
+  font-family: "Arsenal", sans-serif;
+  margin: 12px 0 0 0;
+}
+
+@media (max-width: 700px) {
+  .churchImage {
+    height: 100%;
+    max-height: 150px;
+    max-width: 150px;
+    width: 100%;
+  }
+
+  .churchImageWrapper {
+    height: calc(100vw - 24px);
+    max-height: 150px;
+    width: calc(100vw - 24px);
+  }
+
+  .hotel {
+    width: calc(100vw - 24px);
+  }
+}
