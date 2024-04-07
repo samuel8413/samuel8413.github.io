@@ -1,11 +1,19 @@
 import styles from "./styles.module.css";
+import hotels from "./hotels.json";
 
-const Hotel = () => {
+const Hotel = ({ hotel }) => {
+  const { classes, location, name, phone, price, roomDetails } = hotel;
+
   return (
     <li className={styles.hotel}>
-      <h4>Hotel name</h4>
-      <p>Location</p>
-      <p>Phone number</p>
+      <div className={styles.churchImageWrapper}>
+        <div className={styles[classes]} />
+      </div>
+      <h4 className={styles.text}>{name}</h4>
+      <a className={styles.location} href={location}>Ubicación</a>
+      <p className={styles.text}>{phone}</p>
+      <p className={styles.text}>{price}</p>
+      <p className={styles.text}>{roomDetails}</p>
     </li>
   );
 };
@@ -13,8 +21,8 @@ const Hotel = () => {
 const Hotels = () => {
   return (
     <ul className={styles.container}>
-      {[0, 1, 2].map((id) => (
-        <Hotel key={id} />
+      {hotels.map((hotel, id) => (
+        <Hotel key={id} hotel={hotel} />
       ))}
     </ul>
   );
