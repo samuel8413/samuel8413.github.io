@@ -10,7 +10,9 @@ const Hotel = ({ hotel }) => {
         <div className={styles[classes]} />
       </div>
       <h4 className={styles.text}>{name}</h4>
-      <a className={styles.location} href={location}>Ubicación</a>
+      <a className={styles.location} href={location}>
+        Ver ubicación en Google Maps
+      </a>
       <p className={styles.text}>{phone}</p>
       <p className={styles.text}>{price}</p>
       <p className={styles.text}>{roomDetails}</p>
@@ -20,11 +22,14 @@ const Hotel = ({ hotel }) => {
 
 const Hotels = () => {
   return (
-    <ul className={styles.container}>
-      {hotels.map((hotel, id) => (
-        <Hotel key={id} hotel={hotel} />
-      ))}
-    </ul>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>Hoteles cercanos y precios aproximados</h2>
+      <ul className={styles.container}>
+        {hotels.map((hotel, id) => (
+          <Hotel key={id} hotel={hotel} />
+        ))}
+      </ul>
+    </div>
   );
 };
 

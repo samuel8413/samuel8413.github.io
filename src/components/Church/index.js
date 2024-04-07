@@ -25,7 +25,7 @@ const Church = () => {
         </p>
         <p className={styles.label}>Atotonilco el Grande, Hidalgo</p>
         <p className={styles.label}>CP: 43300</p>
-        <p className={styles.time}>Hora de la misa: 13:00 p.m.</p>
+        <p className={styles.time}>Hora de la misa: 1:00 p.m.</p>
       </div>
     </div>
   );

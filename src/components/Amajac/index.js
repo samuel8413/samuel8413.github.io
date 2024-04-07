@@ -9,7 +9,8 @@ const Amajac = () => {
         <p className={styles.label}>
           El balneario cuenta con aguas termales de 46°, toboganes, áreas
           verdes, áreas para acampar, hoteleria, restaurant, bar, spa, comida
-          gastronómica.
+          gastronómica y se encuentra a sólo 15 minutos en auto desde el
+          lugar de la celebración.
         </p>
         <p className={styles.label}>
           <a href="https://maps.app.goo.gl/7kyG4VuhJaSXzmjBA">
