@@ -24,16 +24,18 @@
 }
 
 .churchImageWrapper {
+  align-items: flex-start;
   display: flex;
   height: calc((100vw - 24px) / 3);
   justify-content: center;
+  margin: 0 auto;
   max-height: 150px;
-  max-width: 100%;
+  max-width: 150px;
   width: calc((100vw - 24px) / 3);
 }
 
 .container {
-  align-items: center;
+  align-items: flex-start;
   background-color: white;
   box-sizing: border-box;
   display: flex;
