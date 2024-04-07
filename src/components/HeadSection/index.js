@@ -21,7 +21,7 @@ const HeadSection = () => {
         </p>
         <div className={styles.tableWrapper}>
           <span className={styles.secondaryText} style={{ margin: "0 12px" }}>
-            13:00 p.m.
+            1:00 p.m.
           </span>
           <span
             className={styles.secondaryText}
@@ -29,7 +29,7 @@ const HeadSection = () => {
               alignContent: "center",
               borderLeft: "3px solid #bca459",
               borderRight: "3px solid #bca459",
-              display: 'flex',
+              display: "flex",
               height: "100%",
               margin: "12px",
               width: "100%",

@@ -1,4 +1,5 @@
 import Age from "@/components/Age";
+import Amajac from "@/components/Amajac";
 import Church from "@/components/Church";
 import HeadSection from "@/components/HeadSection";
 import Hotels from "@/components/Hotels";
@@ -14,6 +15,7 @@ export default function Home() {
       <Location />
       <Church />
       <Hotels />
+      <Amajac />
     </main>
   );
 }
