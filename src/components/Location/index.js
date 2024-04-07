@@ -4,7 +4,9 @@ const Location = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <p className={styles.contentTitle}>Lugar de la celebración:</p>
+        <p className={styles.contentTitle}>
+          Después de la misa, acompáñanos a celebrar en:
+        </p>
         <p className={styles.contentLabel}>
           Carretera Huejutla de Reyes - Pachuca, KM 36.
         </p>

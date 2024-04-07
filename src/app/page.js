@@ -12,8 +12,8 @@ export default function Home() {
     <main>
       <HeadSection />
       <Age />
-      <Location />
       <Church />
+      <Location />
       <Hotels />
       <Amajac />
     </main>

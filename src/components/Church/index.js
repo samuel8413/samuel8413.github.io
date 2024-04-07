@@ -20,8 +20,9 @@ const Church = () => {
       />
       <div className={styles.content}>
         <p className={styles.title}>Lugar de la misa:</p>
-        <p className={styles.label}>Ex Convento De San Agustín</p>
-        <p className={styles.label}>Lic. Jorge Viesca Palma S, Centro</p>
+        <p className={styles.label}>
+          Ex Convento De San Agustín, Lic. Jorge Viesca Palma S, Centro
+        </p>
         <p className={styles.label}>Atotonilco el Grande, Hidalgo</p>
         <p className={styles.label}>CP: 43300</p>
         <p className={styles.time}>Hora de la misa: 13:00 p.m.</p>
