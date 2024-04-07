@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 const Amajac = () => {
   return (
     <div className={styles.container}>
+      <div className={styles.image} />
       <div className={styles.content}>
         <p className={styles.title}>Balneario Amajac</p>
         <p className={styles.label}>
@@ -28,7 +29,6 @@ const Amajac = () => {
           disponibilidad de hospedaje directamente en sus instalaciones.
         </p>
       </div>
-      <div className={styles.image} />
     </div>
   );
 };
