@@ -1,0 +1,117 @@
+{
+  "site": {
+    "url": "",
+    "titleTemplate": "%s | Senior Software Engineer",
+    "description": "",
+    "repositoryUrl": ""
+  },
+  "experience": {
+    "careerPivot": "Nov 2020"
+  },
+  "highlights": [
+    {
+      "value": "1 to 7",
+      "label": "engineers on the account",
+      "detail": "Grew Wizeline's team at Dow Jones from a single engineer to seven, running about 30 interviews and onboarding every hire."
+    },
+    {
+      "value": "95-102%",
+      "label": "of planned sprint work delivered",
+      "detail": "Up from about 80%, after building the sprint-metrics tooling that surfaced under-delivery and blockers."
+    },
+    {
+      "value": "4+ years",
+      "label": "on Barron's and MarketWatch",
+      "detail": "Full stack of a high-traffic publishing platform: Next.js, Node.js, GraphQL and the AWS edge, managed with Terraform."
+    },
+    {
+      "value": "~60",
+      "label": "technical interviews conducted",
+      "detail": "Across Infosys and Wizeline, plus mentoring about five junior developers."
+    }
+  ],
+  "skills": {
+    "groups": [
+      {
+        "name": "Frontend",
+        "skills": ["React.js", "Next.js", "TypeScript", "JavaScript", "Web Performance"]
+      },
+      {
+        "name": "Backend & APIs",
+        "skills": [
+          "Node.js",
+          "GraphQL",
+          "REST APIs",
+          "Python (Programming Language)",
+          "FastAPI",
+          "Java",
+          "Redis"
+        ]
+      },
+      {
+        "name": "Cloud & Infrastructure",
+        "skills": [
+          "Amazon Web Services (AWS)",
+          "Terraform",
+          "Infrastructure as Code",
+          "Amazon CloudFront",
+          "AWS Lambda",
+          "Amazon S3",
+          "CI/CD",
+          "Jenkins",
+          "Git"
+        ]
+      },
+      {
+        "name": "AI & LLM Engineering",
+        "skills": [
+          "Large Language Models (LLM)",
+          "AI Agents",
+          "Amazon Bedrock",
+          "LangChain",
+          "Generative AI",
+          "Artificial Intelligence (AI)"
+        ]
+      },
+      {
+        "name": "Architecture & Security",
+        "skills": ["Software Architecture", "System Design", "Cybersecurity", "Cryptography"]
+      },
+      {
+        "name": "Leadership",
+        "skills": [
+          "Technical Leadership",
+          "Mentorship",
+          "Agile Methodologies",
+          "Communication",
+          "Teamwork"
+        ]
+      }
+    ],
+    "labels": {
+      "Python (Programming Language)": "Python",
+      "Amazon Web Services (AWS)": "AWS",
+      "Large Language Models (LLM)": "LLMs",
+      "Artificial Intelligence (AI)": "AI",
+      "React.js": "React"
+    }
+  },
+  "contact": {
+    "lead": "Open to Staff Engineer and Tech Lead conversations. The fastest ways to reach me are below."
+  },
+  "resume": {
+    "showPhoto": false,
+    "summary": "",
+    "detailedTenures": 2,
+    "include": {
+      "certifications": true,
+      "publications": true,
+      "projects": false,
+      "earlierCareer": true
+    }
+  },
+  "privacy": {
+    "showEmail": true,
+    "showPhone": false
+  }
+}

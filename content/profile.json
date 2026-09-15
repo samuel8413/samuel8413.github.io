@@ -1,0 +1,271 @@
+{
+  "contact": {
+    "full_name": "Samuel Garcia Hidalgo",
+    "email": "samuelluciogar@gmail.com",
+    "phone": "",
+    "location": "Mexico City, Mexico",
+    "linkedin_url": "https://www.linkedin.com/in/samuelluciogar/",
+    "github_url": "https://github.com/samuel8413",
+    "website_url": ""
+  },
+  "headline": "Senior Software Engineer | Full-Stack & Cloud Systems (React, Node.js, AWS) | Technical Leadership | Growing Focus on AI/LLM Engineering",
+  "summary": "I'm a Senior Software Engineer with 6+ years of experience building and running high-traffic web platforms. For the last 4+ years I've been embedded on Dow Jones's Barron's and MarketWatch engineering team, first through Infosys and now with Wizeline, where I lead our 7-engineer team on the account.\n\nMy day-to-day covers the full stack of a large publishing platform: Next.js and React on the front end, Node.js and GraphQL services behind it, and the AWS edge in front of everything (CloudFront, Lambda@Edge, WAF, all managed with Terraform). Production incidents are part of the job too. Right now I'm leading the migration of both sites to Next.js App Router and Dow Jones's Index Design System, and I built the AI-assisted tooling the team uses for it.\n\nOn the AI side, I designed the infrastructure and backend integration for Barron's AI Stock Screener: Aurora, DynamoDB and private Bedrock endpoints provisioned with Terraform, plus a Python/FastAPI/LangChain multi-agent service running Claude on AWS Bedrock. This is where I want to keep growing: LLM systems, agents, and the infrastructure that makes them reliable in production.\n\nI grew Wizeline's team on this account from one engineer (me) to seven. Along the way I've run around 60 technical interviews across both employers and onboarded every new hire. I also built the sprint metrics tooling that helped the team go from about 80% to 95-100%+ of planned work delivered per sprint; our delivery manager now uses its reports with the client.\n\nI started out in mechanical engineering. My first real program was a VBA macro that cut a two-hour HVAC calculation down to 15 minutes, and I've been automating things and turning them into team tools ever since.\n\nI'm looking for Staff or Tech Lead roles where technical strategy and making the team better count as much as writing code.",
+  "positions": [
+    {
+      "company": "Wizeline",
+      "title": "Senior Software Engineer",
+      "location": "Mexico City, Mexico",
+      "started_on": "Oct 2024",
+      "finished_on": null,
+      "description": {
+        "intro": "Tech lead for Wizeline's engineering team embedded in Dow Jones's Barron's & MarketWatch (BMW) group, covering full-stack development, AWS edge infrastructure and production support for both properties.",
+        "bullets": [
+          "Lead the migration of Barron's and MarketWatch from Next.js Pages Router to Next.js 16 App Router and Dow Jones's Index Design System; designed and built the AI-guided migration tool (Claude-based agents, skills and guard hooks with phase-gated plans and immutable baselines) the team uses to move pages and components into the new monorepo.",
+          "Architected Barron's AI Stock Screener after inheriting an unrunnable prototype from another team: defined and built its Terraform infrastructure (Aurora MySQL cluster, DynamoDB conversation store, private VPC endpoints to Amazon Bedrock, IAM) inside our multi-account landing zone, and adapted the Python/FastAPI/LangChain multi-agent backend (natural-language-to-SQL over market data, Claude on Bedrock, Langfuse tracing) to run on Barron's platform. #2 contributor on both repos; in coordination with Dow Jones's infrastructure team. Currently in stakeholder evaluation and data-licensing review ahead of launch.",
+          "Grew Wizeline's footprint on the account from a single engineer (me) to 7, soon 9: ran ~30 technical interviews (~6 candidates per hire) and onboarded every Wizeline engineer plus Dow Jones direct hires.",
+          "Built the sprint-metrics tooling that surfaced under-delivery and blockers; the team went from ~80% to 95-102% of planned work delivered, and its reports are now used by Wizeline's delivery manager in client reporting.",
+          "Ran coaching sessions with the client's engineering manager to resolve team-wide performance concerns; act as the technical reference for the client's team lead and Wizeline's delivery manager, unblocking engineers on complex issues.",
+          "Respond to production incidents, including hot-fixing regressions mid-deployment on high-traffic pages."
+        ]
+      }
+    },
+    {
+      "company": "Infosys",
+      "title": "Technology Lead",
+      "location": "Mexico City, Mexico (remote, client team based in New York)",
+      "started_on": "Sep 2021",
+      "finished_on": "Oct 2024",
+      "description": {
+        "intro": "Full-stack engineer embedded in Dow Jones's Barron's & MarketWatch team for three years, working across everything the two domains required: front-end, back-end services and AWS edge infrastructure.",
+        "bullets": [
+          "Developed and maintained features on Dow Jones's shared server-side-rendered platform (Node.js/Express, React, GraphQL) serving Barron's, MarketWatch and sister brands, including paywall/entitlement flows and A/B-tested experiences, with New Relic observability.",
+          "Co-executed the migration of Barron's from the legacy monolith to a Next.js (Pages Router) monorepo, rewriting pages and components in TypeScript with unit and integration test coverage.",
+          "Maintained the CloudFront/Terraform edge layer for both domains (cache and origin-request policies, WAF, Lambda@Edge redirects) in a multi-account nonprod/staging/prod setup, and participated in production incident response.",
+          "Worked in a Scrum team with US-based product and engineering stakeholders, in English, across all ceremonies.",
+          "Mentored ~5 junior developers and conducted ~30 JavaScript/React technical interviews for Infosys; recognized with an Insta Award (2022)."
+        ]
+      }
+    },
+    {
+      "company": "Technogi",
+      "title": "Developer and Support Engineer",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "May 2021",
+      "finished_on": "Sep 2021",
+      "description": {
+        "responsibilities": [
+          "Developed and maintained complex web applications using React and Next.js for the front-end, and Node.js or Java Spring Boot for the back-end.",
+          "Worked primarily on projects for Dentegra and Deli Life, handling feature requests and resolving bugs within existing codebases.",
+          "Managed database operations using MongoDB.",
+          "Used AWS services for deployment, leveraging the AWS SDK for JavaScript to integrate and manage cloud services.",
+          "Led the development of the Dentegra mobile app from scratch using React Native."
+        ],
+        "key_achievements": [
+          "Efficiently managed and optimized code for complex web applications.",
+          "Led development of the Dentegra mobile app from scratch using React Native, delivering approximately 80% of the planned functionality before transitioning to a new opportunity.",
+          "Expanded my skill set by working with modern technologies, including React, Next.js, Node.js, Java Spring Boot, MongoDB, and React Native.",
+          "Gained hands-on experience with AWS deployment and cloud services, using the JavaScript SDK for cloud integration and management."
+        ]
+      }
+    },
+    {
+      "company": "Clico Digital Marketing",
+      "title": "Front End Developer",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "Nov 2020",
+      "finished_on": "May 2021",
+      "description": {
+        "responsibilities": [
+          "Developed custom WordPress themes and plugins using PHP, HTML, CSS, and JavaScript, transitioning the company away from template-based design (Elementor) to fully custom solutions.",
+          "Enhanced website performance through optimization techniques using Webpack, JavaScript, and jQuery.",
+          "Implemented SEO on-page strategies."
+        ],
+        "key_achievements": [
+          "Played a crucial role in upgrading the technical capabilities of the company by moving from Elementor templates to fully customized WordPress sites, allowing for greater flexibility, performance, and design innovation.",
+          "Migrated 8-10 client websites from Elementor to fully custom WordPress builds, including high-profile projects for clients such as The Beer Factory, Ibero Monterrey, Akash Consultores, Industrias Vijusa, and Brokers Financieros.",
+          "Introduced the use of React in certain projects, enabling the development of more dynamic and responsive user interfaces.",
+          "Successfully modernized the company's web development workflow, providing clients with tailored solutions that better aligned with their business needs and branding, contributing to client satisfaction and retention."
+        ]
+      }
+    },
+    {
+      "company": "Grupo Confort Nacional",
+      "title": "Branch Manager",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "Feb 2020",
+      "finished_on": "Jul 2020",
+      "description": "Led a newly opened HVAC sales branch end to end: sales pipeline, warehouse and logistics, and hiring, interviewing and onboarding the branch's staff. Branch closed in July 2020 due to the COVID-19 pandemic."
+    },
+    {
+      "company": "Grupo Confort Nacional",
+      "title": "Technical Sales",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "Oct 2019",
+      "finished_on": "Feb 2020",
+      "description": "Technical pre-sales for HVAC projects: on-site requirements assessment, system sizing and design, and detailed quotations bridging the sales and engineering teams."
+    },
+    {
+      "company": "Rheem México",
+      "title": "Design Trainee",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "May 2018",
+      "finished_on": "Oct 2019",
+      "description": "HVAC design trainee who taught himself VBA to automate thermal-load calculations, cutting each from two hours to 15 minutes, then built an Excel-based quoting tool with a product/pricing database and a project-tracking database that became the B2B team's weekly reporting source."
+    },
+    {
+      "company": "Centro de Investigación e Innovación Tecnológica (CIITEC)",
+      "title": "Vehicle Homologation Officer",
+      "location": "Mexico City Metropolitan Area",
+      "started_on": "Oct 2017",
+      "finished_on": "May 2018",
+      "description": "Ran the originality-certification process for classic vehicles against strict regulatory criteria, documenting technical assessments; developed the structural-analysis skills applied in my thesis (mobile command center for disaster response)."
+    }
+  ],
+  "education": [
+    {
+      "school": "Instituto Politécnico Nacional",
+      "degree": "Bachelor degree in Mechanical Engineering",
+      "started_on": "2013",
+      "finished_on": "2017"
+    }
+  ],
+  "skills": [
+    "Amazon Web Services (AWS)",
+    "Next.js",
+    "Software Architecture",
+    "React.js",
+    "Node.js",
+    "TypeScript",
+    "JavaScript",
+    "Python (Programming Language)",
+    "System Design",
+    "Infrastructure as Code",
+    "Terraform",
+    "Amazon CloudFront",
+    "AWS Lambda",
+    "Amazon S3",
+    "CI/CD",
+    "Artificial Intelligence (AI)",
+    "Generative AI",
+    "Large Language Models (LLM)",
+    "Amazon Bedrock",
+    "LangChain",
+    "AI Agents",
+    "FastAPI",
+    "GraphQL",
+    "REST APIs",
+    "Redis",
+    "Jenkins",
+    "Git",
+    "Web Performance",
+    "Cybersecurity",
+    "Cryptography",
+    "Java",
+    "Technical Leadership",
+    "Mentorship",
+    "Agile Methodologies",
+    "Communication",
+    "Teamwork"
+  ],
+  "languages": [
+    {
+      "name": "Spanish",
+      "proficiency": "Native or bilingual proficiency"
+    },
+    {
+      "name": "English",
+      "proficiency": "Professional working proficiency"
+    },
+    {
+      "name": "German",
+      "proficiency": "Elementary proficiency"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AI Fundamentals (12 CPE)",
+      "authority": "DataCamp",
+      "started_on": "Apr 2026",
+      "url": "https://www.datacamp.com/skill-verification/AIF0022051606655",
+      "license_number": "AIF0022051606655"
+    },
+    {
+      "name": "EF SET English Certificate 68/100 (C1 Advanced)",
+      "authority": "EF SET",
+      "started_on": "Sep 2025",
+      "url": "https://cert.efset.org/en/fPKjEf"
+    },
+    {
+      "name": "The Complete Cyber Security Course: Hackers Exposed!",
+      "authority": "Udemy",
+      "started_on": "Aug 2022",
+      "url": "https://www.udemy.com/certificate/UC-6b4c3d47-16b6-41b5-a31a-0ddcdb4e01e7/",
+      "license_number": "UC-6b4c3d47-16b6-41b5-a31a-0ddcdb4e01e7"
+    },
+    {
+      "name": "Mentoring Program",
+      "authority": "Wizeline",
+      "started_on": "Nov 2024"
+    },
+    {
+      "name": "Prompt Engineering",
+      "authority": "LinkedIn",
+      "started_on": "Mar 2025",
+      "url": "https://www.linkedin.com/learning/certificates/e4f510d931bbe44f861b0c20e4d0a0d5407f2916077a3ae429d7d75390a2d940?trk=share_certificate"
+    },
+    {
+      "name": "Mastering Algorithms and Data Structures in JavaScript",
+      "authority": "CodeSignal",
+      "started_on": "Oct 2024",
+      "url": "https://learn.codesignal.com/certificates/cm0rbufew00837jm1ur7zyy50/course-paths/10"
+    },
+    {
+      "name": "Front-End Engineering with React",
+      "authority": "CodeSignal",
+      "started_on": "Oct 2024",
+      "url": "https://learn.codesignal.com/certificates/cm0rbufew00837jm1ur7zyy50/course-paths/13"
+    },
+    {
+      "name": "Functional Programming in C++",
+      "authority": "CodeSignal",
+      "started_on": "Dec 2024",
+      "url": "https://codesignal.com/learn/certificates/cm0rbufew00837jm1ur7zyy50/course-paths/71"
+    },
+    {
+      "name": "Goethe Zertifikat A2 Fit in Deutsch 2",
+      "authority": "Goethe-Institut e.V.",
+      "started_on": "Jun 2013"
+    }
+  ],
+  "honors": [
+    {
+      "title": "Insta Awards",
+      "description": "Certificate of Appreciation for my commitment to my assignment and the Infosys processes.",
+      "issued_on": "Sep 2022"
+    }
+  ],
+  "projects": [
+    {
+      "title": "DiscimusLT",
+      "started_on": "Jul 2020",
+      "finished_on": "May 2021",
+      "description": "Worked on multiple projects for individuals and small businesses delivering web development solutions tailored to their specific needs. Developed various Single Page Applications (SPAs) using React. Built RESTful APIs with Node.js for back-end services. Deployed the projects on AWS EC2 instances using Nginx for server management. Managed domain setups and configurations, including email administration, for my personal domain discimuslt.com, inspired by the Latin phrase \"Docendo discimus\" (\"by teaching, we learn\"). Delivered multiple custom web solutions for third-party clients, managing the full development lifecycle from project scoping to deployment and support."
+    }
+  ],
+  "publications": [
+    {
+      "name": "The Power of Stories: How Human Narratives Shaped Our World",
+      "publisher": "Medium",
+      "published_on": "Oct 5, 2024",
+      "url": "https://medium.com/@samuelluciogar/the-power-of-stories-how-human-narratives-shaped-our-world-e11c969fec32",
+      "description": "Essay on how shared narratives, from Mesopotamian myth to modern political and economic ideologies, organized societies and shaped collective identity. Draws on Yuval Noah Harari's \"Sapiens\" and Michael Sugrue's lectures."
+    },
+    {
+      "name": "Thoughts on Digital Ontology",
+      "publisher": "Medium",
+      "published_on": "Dec 23, 2024",
+      "url": "https://medium.com/@samuelluciogar/thoughts-on-digital-ontology-614268ed4c34",
+      "description": "Essay reading the digital world through Plato's Divided Line and object-oriented programming: whether software abstractions move us closer to universal truths or deeper into representations, and the ethical questions of building and inhabiting digital spaces."
+    }
+  ]
+}
