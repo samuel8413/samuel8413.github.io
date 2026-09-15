@@ -1,0 +1,116 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { Experience } from '../../domain/model.ts';
+import CompanyTenure from '../experience/CompanyTenure.astro';
+import DateRange from '../ui/DateRange.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  experience: Experience;
+  now: PartialDate;
+}
+
+const { experience, now } = Astro.props;
+const earlierCount = experience.earlier.reduce((n, t) => n + t.positions.length, 0);
+---
+
+<Section id="experience" title="Experience" eyebrow="Career">
+  <ol class="timeline" role="list">
+    {experience.primary.map((tenure) => (
+      <CompanyTenure tenure={tenure} now={now} />
+    ))}
+  </ol>
+
+  {experience.earlier.length > 0 && (
+    <details class="earlier">
+      <summary>
+        <Icon name="chevron-down" size={18} class="chevron" />
+        <span>
+          Earlier career: {earlierCount} {earlierCount === 1 ? 'role' : 'roles'} before software
+        </span>
+      </summary>
+      <ol role="list" class="earlier-list">
+        {experience.earlier.flatMap((tenure) =>
+          tenure.positions.map((position) => (
+            <li>
+              <div>
+                <h3>
+                  {position.title} <span class="at">at {tenure.company}</span>
+                </h3>
+                <p class="meta">
+                  <DateRange range={position.range} now={now} />
+                </p>
+              </div>
+              {position.summary && <p class="summary">{position.summary}</p>}
+            </li>
+          )),
+        )}
+      </ol>
+    </details>
+  )}
+</Section>
+
+<style>
+  .timeline {
+    max-width: 52rem;
+  }
+
+  .earlier {
+    margin-block-start: var(--space-8);
+    max-width: 52rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .earlier summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .earlier summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .earlier :global(.chevron) {
+    transition: transform var(--duration) var(--ease);
+    color: var(--color-text-muted);
+  }
+
+  .earlier[open] :global(.chevron) {
+    transform: rotate(180deg);
+  }
+
+  .earlier-list {
+    padding: 0 var(--space-5) var(--space-5);
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .earlier-list h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .at {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .meta {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .summary {
+    margin-block-start: var(--space-2);
+    color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+</style>

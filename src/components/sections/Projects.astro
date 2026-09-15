@@ -1,0 +1,61 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { Project } from '../../domain/model.ts';
+import DateRange from '../ui/DateRange.astro';
+import ExternalLink from '../ui/ExternalLink.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  projects: readonly Project[];
+  now: PartialDate;
+}
+
+const { projects, now } = Astro.props;
+---
+
+{projects.length > 0 && (
+  <Section id="projects" title="Independent work" eyebrow="Projects" tone="muted">
+    <ul role="list" class="list">
+      {projects.map((project) => (
+        <li>
+          <article>
+            <h3>
+              {project.url ? (
+                <ExternalLink href={project.url}>{project.title}</ExternalLink>
+              ) : (
+                project.title
+              )}
+            </h3>
+            <p class="meta">
+              <DateRange range={project.range} now={now} />
+            </p>
+            <p class="description">{project.description}</p>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </Section>
+)}
+
+<style>
+  .list {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 52rem;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+
+  .meta {
+    margin-block-start: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .description {
+    margin-block-start: var(--space-2);
+    max-width: var(--measure);
+  }
+</style>

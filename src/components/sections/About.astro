@@ -1,0 +1,19 @@
+---
+import Section from '../ui/Section.astro';
+
+interface Props {
+  paragraphs: readonly string[];
+}
+
+const { paragraphs } = Astro.props;
+---
+
+{paragraphs.length > 0 && (
+  <Section id="about" title="About" eyebrow="Profile">
+    <div class="prose">
+      {paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </div>
+  </Section>
+)}

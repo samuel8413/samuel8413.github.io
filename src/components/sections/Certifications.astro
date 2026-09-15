@@ -1,0 +1,172 @@
+---
+import { formatPartialDate, toIsoDate } from '../../domain/dates.ts';
+import type { Certification, Honor } from '../../domain/model.ts';
+import ExternalLink from '../ui/ExternalLink.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  certifications: readonly Certification[];
+  honors: readonly Honor[];
+}
+
+const { certifications, honors } = Astro.props;
+---
+
+{(certifications.length > 0 || honors.length > 0) && (
+  <Section id="certifications" title="Certifications and honors" eyebrow="Credentials" tone="muted">
+    {certifications.length > 0 && (
+      <ul role="list" class="grid" aria-label="Certifications">
+        {certifications.map((cert) => (
+          <li class="card">
+            <h3>{cert.name}</h3>
+            <p class="authority">{cert.authority}</p>
+            <p class="meta">
+              <time datetime={toIsoDate(cert.issuedOn)}>{formatPartialDate(cert.issuedOn)}</time>
+              {cert.licenseNumber && <span class="license">ID {cert.licenseNumber}</span>}
+            </p>
+            {cert.url && (
+              <ExternalLink href={cert.url} class="verify">
+                Verify <Icon name="external" size={14} />
+              </ExternalLink>
+            )}
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {honors.length > 0 && (
+      <div class="honors">
+        <h3>Honors</h3>
+        <ul role="list">
+          {honors.map((honor) => (
+            <li>
+              <Icon name="award" size={20} class="award" />
+              <div>
+                <p class="honor-title">
+                  <span>{honor.title}</span>
+                  <time class="honor-date" datetime={toIsoDate(honor.issuedOn)}>
+                    {formatPartialDate(honor.issuedOn)}
+                  </time>
+                </p>
+                {honor.description && <p class="muted">{honor.description}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </Section>
+)}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .card h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .authority {
+    color: var(--color-text-muted);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35em;
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+
+  .license {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .license::before {
+    content: '·';
+    margin-inline-end: 0.35em;
+  }
+
+  .verify {
+    margin-block-start: auto;
+    padding-block-start: var(--space-2);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    width: fit-content;
+  }
+
+  .honors {
+    margin-block-start: var(--space-7);
+  }
+
+  .honors h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-3);
+  }
+
+  .honors li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .honors :global(.award) {
+    color: var(--color-accent);
+    margin-block-start: 0.2rem;
+  }
+
+  .honor-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35em;
+    font-weight: 600;
+  }
+
+  .honor-date {
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    font-weight: 400;
+  }
+
+  .honor-date::before {
+    content: '·';
+    margin-inline-end: 0.35em;
+  }
+
+  @media print {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2);
+    }
+
+    .card {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .verify {
+      display: none;
+    }
+  }
+</style>

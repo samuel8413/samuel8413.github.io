@@ -1,0 +1,71 @@
+---
+import { formatPartialDate, toIsoDate } from '../../domain/dates.ts';
+import type { Publication } from '../../domain/model.ts';
+import ExternalLink from '../ui/ExternalLink.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  publications: readonly Publication[];
+}
+
+const { publications } = Astro.props;
+---
+
+{publications.length > 0 && (
+  <Section id="writing" title="Writing" eyebrow="Essays">
+    <ul role="list" class="list">
+      {publications.map((publication) => (
+        <li>
+          <article>
+            <h3>
+              {publication.url ? (
+                <ExternalLink href={publication.url}>{publication.name}</ExternalLink>
+              ) : (
+                publication.name
+              )}
+            </h3>
+            <p class="meta">
+              {publication.publisher} ·{' '}
+              <time datetime={toIsoDate(publication.publishedOn)}>
+                {formatPartialDate(publication.publishedOn)}
+              </time>
+            </p>
+            {publication.description && <p class="description">{publication.description}</p>}
+          </article>
+        </li>
+      ))}
+    </ul>
+  </Section>
+)}
+
+<style>
+  .list {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 52rem;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+
+  h3 :global(a) {
+    color: var(--color-text);
+    text-decoration-color: var(--color-border-strong);
+  }
+
+  h3 :global(a:hover) {
+    color: var(--color-accent);
+  }
+
+  .meta {
+    margin-block-start: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .description {
+    margin-block-start: var(--space-2);
+    max-width: var(--measure);
+  }
+</style>

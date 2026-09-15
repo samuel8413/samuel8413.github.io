@@ -1,0 +1,127 @@
+---
+import type { Contact } from '../../domain/model.ts';
+import ExternalLink from '../ui/ExternalLink.astro';
+import Icon, { type IconName } from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  contact: Contact;
+}
+
+const { contact } = Astro.props;
+
+interface Channel {
+  icon: IconName;
+  label: string;
+  value: string;
+  href: string;
+  external: boolean;
+}
+
+const stripProtocol = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+const channels: Channel[] = [
+  contact.email && {
+    icon: 'mail',
+    label: 'Email',
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+    external: false,
+  },
+  contact.linkedin && {
+    icon: 'linkedin',
+    label: 'LinkedIn',
+    value: stripProtocol(contact.linkedin),
+    href: contact.linkedin,
+    external: true,
+  },
+  contact.github && {
+    icon: 'github',
+    label: 'GitHub',
+    value: stripProtocol(contact.github),
+    href: contact.github,
+    external: true,
+  },
+  contact.website && {
+    icon: 'globe',
+    label: 'Website',
+    value: stripProtocol(contact.website),
+    href: contact.website,
+    external: true,
+  },
+  contact.phone && {
+    icon: 'phone',
+    label: 'Phone',
+    value: contact.phone,
+    href: `tel:${contact.phone.replace(/\s+/g, '')}`,
+    external: false,
+  },
+].filter((channel): channel is Channel => Boolean(channel));
+---
+
+{channels.length > 0 && (
+  <Section id="contact" title="Get in touch" eyebrow="Contact">
+    {contact.lead && <p class="lead prose">{contact.lead}</p>}
+    <ul role="list" class="channels">
+      {channels.map((channel) => (
+        <li>
+          <Icon name={channel.icon} size={20} class="channel-icon" />
+          <span class="label">{channel.label}</span>
+          {channel.external ? (
+            <ExternalLink href={channel.href} data-print="bare">
+              {channel.value}
+            </ExternalLink>
+          ) : (
+            <a href={channel.href}>{channel.value}</a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </Section>
+)}
+
+<style>
+  .lead {
+    color: var(--color-text-muted);
+    margin-block-end: var(--space-5);
+  }
+
+  .channels {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 36rem;
+  }
+
+  .channels li {
+    display: grid;
+    grid-template-columns: auto 6rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .channels :global(.channel-icon) {
+    color: var(--color-accent);
+  }
+
+  .label {
+    font-weight: 600;
+  }
+
+  .channels a {
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 30rem) {
+    .channels li {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .label {
+      display: none;
+    }
+  }
+</style>

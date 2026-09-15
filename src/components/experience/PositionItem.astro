@@ -1,0 +1,115 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { Position } from '../../domain/model.ts';
+import DateRange from '../ui/DateRange.astro';
+
+interface Props {
+  position: Position;
+  now: PartialDate;
+  /** Heading level depends on whether the company header is rendered above. */
+  headingLevel: 3 | 4;
+  /** Hide the location when it repeats what the company header already says. */
+  showLocation?: boolean;
+}
+
+const { position, now, headingLevel, showLocation = true } = Astro.props;
+const Heading = `h${headingLevel}` as const;
+---
+
+<article class="position" id={position.id}>
+  <header>
+    <Heading class="title">{position.title}</Heading>
+    <p class="meta">
+      <DateRange range={position.range} now={now} showDuration />
+      {showLocation && position.location && <span class="location">{position.location}</span>}
+    </p>
+  </header>
+
+  {position.summary && <p class="summary">{position.summary}</p>}
+
+  {position.highlights.length > 0 && (
+    <ul class="highlights">
+      {position.highlights.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  )}
+
+  {position.responsibilities.length > 0 && (
+    <details class="scope">
+      <summary>Scope and responsibilities</summary>
+      <ul>
+        {position.responsibilities.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </details>
+  )}
+</article>
+
+<style>
+  .position + .position {
+    margin-block-start: var(--space-6);
+    padding-block-start: var(--space-6);
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .title {
+    font-size: var(--text-lg);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35em;
+    margin-block-start: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .location::before {
+    content: '·';
+    margin-inline-end: 0.35em;
+  }
+
+  .summary {
+    margin-block-start: var(--space-3);
+    max-width: var(--measure);
+  }
+
+  .highlights {
+    margin-block-start: var(--space-3);
+    padding-inline-start: 1.2em;
+    list-style-type: disc;
+    max-width: var(--measure);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .highlights li::marker {
+    color: var(--color-accent);
+  }
+
+  .scope {
+    margin-block-start: var(--space-3);
+    max-width: var(--measure);
+  }
+
+  .scope summary {
+    cursor: pointer;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    width: fit-content;
+  }
+
+  .scope ul {
+    margin-block-start: var(--space-2);
+    padding-inline-start: 1.2em;
+    list-style-type: disc;
+    color: var(--color-text-muted);
+    display: grid;
+    gap: var(--space-1);
+  }
+</style>

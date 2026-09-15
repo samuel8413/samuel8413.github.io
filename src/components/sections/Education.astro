@@ -1,0 +1,91 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { Education, Language } from '../../domain/model.ts';
+import DateRange from '../ui/DateRange.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  education: readonly Education[];
+  languages: readonly Language[];
+  now: PartialDate;
+}
+
+const { education, languages, now } = Astro.props;
+---
+
+{(education.length > 0 || languages.length > 0) && (
+  <Section id="education" title="Education and languages" eyebrow="Background">
+    <div class="columns">
+      {education.length > 0 && (
+        <ul role="list" class="education" aria-label="Education">
+          {education.map((entry) => (
+            <li>
+              <h3>{entry.degree}</h3>
+              <p>{entry.school}</p>
+              <p class="meta">
+                <DateRange range={entry.range} now={now} />
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {languages.length > 0 && (
+        <div class="languages">
+          <h3>Languages</h3>
+          <dl>
+            {languages.map((language) => (
+              <div class="row">
+                <dt>{language.name}</dt>
+                <dd>{language.proficiency}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </div>
+  </Section>
+)}
+
+<style>
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: var(--space-6);
+    max-width: 52rem;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+
+  .education li + li {
+    margin-block-start: var(--space-4);
+  }
+
+  .meta {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .languages h3 {
+    margin-block-end: var(--space-3);
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    color: var(--color-text-muted);
+    text-align: end;
+  }
+</style>

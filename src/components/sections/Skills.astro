@@ -1,0 +1,53 @@
+---
+import type { SkillGroup } from '../../domain/model.ts';
+import Badge from '../ui/Badge.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  groups: readonly SkillGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+{groups.length > 0 && (
+  <Section id="skills" title="Skills" eyebrow="Toolbox" tone="muted">
+    <div class="groups">
+      {groups.map((group) => (
+        <div class="group">
+          <h3>{group.name}</h3>
+          <ul role="list" class="chips">
+            {group.skills.map((skill) => (
+              <Badge as="li" title={skill.label !== skill.name ? skill.name : undefined}>
+                {skill.label}
+              </Badge>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </Section>
+)}
+
+<style>
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: var(--space-5) var(--space-6);
+  }
+
+  h3 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-block-end: var(--space-3);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>

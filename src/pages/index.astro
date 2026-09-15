@@ -1,0 +1,122 @@
+---
+import { getImage } from 'astro:assets';
+import headshot from '../assets/headshot.jpg';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SiteHeader, { type NavItem } from '../components/layout/SiteHeader.astro';
+import SkipLink from '../components/layout/SkipLink.astro';
+import About from '../components/sections/About.astro';
+import Certifications from '../components/sections/Certifications.astro';
+import Contact from '../components/sections/Contact.astro';
+import Education from '../components/sections/Education.astro';
+import Experience from '../components/sections/Experience.astro';
+import Hero from '../components/sections/Hero.astro';
+import Highlights from '../components/sections/Highlights.astro';
+import Projects from '../components/sections/Projects.astro';
+import Skills from '../components/sections/Skills.astro';
+import Writing from '../components/sections/Writing.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { buildDate, profile, siteConfig } from '../data/profile.ts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+// Page-scoped: the résumé route has its own print rules.
+import '../styles/print.css';
+import { toMetaDescription } from '../seo/description.ts';
+import { buildPersonSchema } from '../seo/person-schema.ts';
+
+/**
+ * The single page. Composition only: data comes from `data/profile.ts`,
+ * presentation from the section components. The nav is derived from the same
+ * list that decides what renders, so the two can never disagree.
+ */
+const {
+  identity,
+  contact,
+  experience,
+  education,
+  languages,
+  skillGroups,
+  certifications,
+  honors,
+  projects,
+  publications,
+  highlights,
+} = profile;
+
+const sections: readonly (NavItem & { present: boolean })[] = [
+  { id: 'about', label: 'About', present: identity.summaryParagraphs.length > 1 },
+  { id: 'experience', label: 'Experience', present: true },
+  { id: 'skills', label: 'Skills', present: skillGroups.length > 0 },
+  { id: 'education', label: 'Education', present: education.length > 0 || languages.length > 0 },
+  {
+    id: 'certifications',
+    label: 'Certifications',
+    present: certifications.length > 0 || honors.length > 0,
+  },
+  { id: 'writing', label: 'Writing', present: publications.length > 0 },
+  { id: 'projects', label: 'Projects', present: projects.length > 0 },
+  {
+    id: 'contact',
+    label: 'Contact',
+    present: Boolean(contact.email || contact.linkedin || contact.github || contact.website),
+  },
+];
+const navItems = sections.filter((s) => s.present).map(({ id, label }) => ({ id, label }));
+
+const title = siteConfig.site.titleTemplate.replace('%s', identity.name);
+const description = toMetaDescription(
+  siteConfig.site.description ?? identity.summaryParagraphs[0] ?? identity.headline,
+);
+
+// Social cards want one fixed-size file, not a responsive set.
+const ogImage = await getImage({
+  src: headshot,
+  width: 1200,
+  height: 1200,
+  format: 'jpg',
+  quality: 82,
+  layout: 'none',
+});
+const image = {
+  url: ogImage.src,
+  width: ogImage.attributes.width as number,
+  height: ogImage.attributes.height as number,
+  alt: `Portrait of ${identity.name}`,
+};
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const personSchema = buildPersonSchema(profile, {
+  url: canonical,
+  imageUrl: Astro.site ? new URL(ogImage.src, Astro.site).href : undefined,
+});
+---
+
+<BaseLayout title={title} description={description} image={image} author={identity.name}>
+  <JsonLd slot="head" data={personSchema} />
+
+  <SkipLink />
+  <SiteHeader name={identity.name} items={navItems} />
+
+  <main id="main" tabindex="-1">
+    <Hero identity={identity} contact={contact} />
+    <Highlights items={highlights} />
+    <About paragraphs={identity.summaryParagraphs.slice(1)} />
+    <Experience experience={experience} now={buildDate} />
+    <Skills groups={skillGroups} />
+    <Education education={education} languages={languages} now={buildDate} />
+    <Certifications certifications={certifications} honors={honors} />
+    <Writing publications={publications} />
+    <Projects projects={projects} now={buildDate} />
+    <Contact contact={contact} />
+  </main>
+
+  <SiteFooter
+    name={identity.name}
+    buildDate={buildDate}
+    repositoryUrl={siteConfig.site.repositoryUrl}
+  />
+</BaseLayout>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

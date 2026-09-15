@@ -1,0 +1,135 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { CompanyTenure } from '../../domain/model.ts';
+import DateRange from '../ui/DateRange.astro';
+import PositionItem from './PositionItem.astro';
+
+/**
+ * One employer. A single role renders flat; a promotion path renders the
+ * company once with its total tenure and nests the roles beneath it.
+ */
+interface Props {
+  tenure: CompanyTenure;
+  now: PartialDate;
+}
+
+const { tenure, now } = Astro.props;
+const [first, ...rest] = tenure.positions;
+const single = rest.length === 0;
+const location = first?.location;
+---
+
+<li class="tenure" id={tenure.id}>
+  <div class="marker" aria-hidden="true"></div>
+  <div class="body">
+    <header class="company">
+      <h3>{tenure.company}</h3>
+      {!single && (
+        <p class="meta">
+          <DateRange range={tenure.range} now={now} showDuration />
+          {location && <span class="location">{location}</span>}
+        </p>
+      )}
+    </header>
+
+    <div class="positions">
+      {single && first ? (
+        <PositionItem position={first} now={now} headingLevel={4} />
+      ) : (
+        tenure.positions.map((position) => (
+          <PositionItem position={position} now={now} headingLevel={4} showLocation={false} />
+        ))
+      )}
+    </div>
+  </div>
+</li>
+
+<style>
+  .tenure {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .tenure + .tenure {
+    margin-block-start: var(--space-7);
+  }
+
+  .marker {
+    position: relative;
+    margin-block-start: 0.45rem;
+  }
+
+  .marker::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+
+  .marker::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 1.25rem;
+    bottom: calc(-1 * var(--space-7));
+    width: 2px;
+    translate: -50% 0;
+    background: var(--color-border);
+  }
+
+  .tenure:last-child .marker::after {
+    display: none;
+  }
+
+  .company h3 {
+    font-size: var(--text-xl);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35em;
+    margin-block-start: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .location::before {
+    content: '·';
+    margin-inline-end: 0.35em;
+  }
+
+  .positions {
+    margin-block-start: var(--space-4);
+  }
+
+  /* Nested roles: demote the visual weight of the role title. */
+  .company + .positions :global(.title) {
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  /* Single role: the company heading carries the weight; role reads as a subtitle. */
+  .company:has(+ .positions > :only-child) + .positions {
+    margin-block-start: var(--space-1);
+  }
+
+  @media print {
+    .marker {
+      display: none;
+    }
+
+    .tenure {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

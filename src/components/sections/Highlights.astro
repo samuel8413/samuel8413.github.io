@@ -1,0 +1,84 @@
+---
+import type { Highlight } from '../../domain/model.ts';
+
+interface Props {
+  items: readonly Highlight[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="highlights" aria-label="Career highlights">
+    <div class="container">
+      <ul role="list">
+        {items.map((item) => (
+          <li>
+            <p class="value">{item.value}</p>
+            <p class="label">{item.label}</p>
+            {item.detail && <p class="detail">{item.detail}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .highlights {
+    padding-block-end: var(--space-8);
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  li {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .value {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+
+  .label {
+    margin-block-start: var(--space-1);
+    font-weight: 600;
+  }
+
+  .detail {
+    margin-block-start: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media print {
+    .highlights {
+      padding-block-end: var(--space-4);
+    }
+
+    ul {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-2);
+    }
+
+    li {
+      padding: var(--space-3);
+    }
+
+    .detail {
+      display: none;
+    }
+  }
+</style>

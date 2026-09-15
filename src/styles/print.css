@@ -1,0 +1,69 @@
+/*
+ * Print fallback for the *web page* (someone pressing Ctrl+P on the home page).
+ * The intended print artefact is the résumé route (/cv/), which has its own
+ * stylesheet; this one only keeps the long page legible on paper.
+ */
+@media print {
+  :root {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-surface-muted: #fff;
+    --color-border: #ccc;
+    --color-text: #000;
+    --color-text-muted: #333;
+    --color-text-subtle: #555;
+    --color-accent: #000;
+    --color-accent-strong: #000;
+    --shadow-sm: none;
+    --shadow-md: none;
+  }
+
+  @page {
+    margin: 14mm 16mm;
+  }
+
+  html {
+    font-size: 10.5pt;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .no-print,
+  [data-print='hide'] {
+    display: none !important;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  section {
+    padding-block: 0.6cm !important;
+  }
+
+  h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  article,
+  li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  /* Expand external references so the paper copy is self-contained. */
+  a[href^='http']:not([data-print='bare'])::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+}
