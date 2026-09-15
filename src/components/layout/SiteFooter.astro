@@ -1,0 +1,52 @@
+---
+import { formatPartialDate, toIsoDate, type PartialDate } from '../../domain/dates.ts';
+import ExternalLink from '../ui/ExternalLink.astro';
+
+interface Props {
+  name: string;
+  buildDate: PartialDate;
+  repositoryUrl?: string;
+}
+
+const { name, buildDate, repositoryUrl } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container row">
+    <p>
+      © <time datetime={String(buildDate.year)}>{buildDate.year}</time> {name}. Updated
+      <time datetime={toIsoDate(buildDate)}>{formatPartialDate(buildDate)}</time>.
+    </p>
+    <p class="no-print">
+      Built with{' '}
+      <ExternalLink href="https://astro.build" data-print="bare">
+        Astro
+      </ExternalLink>
+      , deployed on GitHub Pages.
+      {repositoryUrl && (
+        <>
+          {' '}
+          <ExternalLink href={repositoryUrl} data-print="bare">
+            View source
+          </ExternalLink>
+        </>
+      )}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+</style>

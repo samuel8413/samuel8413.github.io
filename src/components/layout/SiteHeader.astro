@@ -1,0 +1,172 @@
+---
+import Icon from '../ui/Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+export interface NavItem {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  name: string;
+  items: readonly NavItem[];
+}
+
+const { name, items } = Astro.props;
+/** The printable résumé lives on its own route; `?print` opens the dialog on arrival. */
+const resumeHref = `${import.meta.env.BASE_URL}cv/`;
+---
+
+<header class="site-header no-print">
+  <div class="container bar">
+    <a href="#top" class="brand">
+      {name}
+    </a>
+
+    <nav aria-label="Sections" class="nav">
+      <ul role="list">
+        {items.map((item) => (
+          <li>
+            <a href={`#${item.id}`}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a href={`${resumeHref}?print`} class="print">
+        <Icon name="printer" size={18} />
+        <span>Save as PDF</span>
+      </a>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<script>
+  // Collapsed sections must be visible on paper. Open them for printing and restore afterwards.
+  const collapsed = () =>
+    Array.from(document.querySelectorAll<HTMLDetailsElement>('details:not([open])'));
+  let opened: HTMLDetailsElement[] = [];
+  window.addEventListener('beforeprint', () => {
+    opened = collapsed();
+    opened.forEach((el) => (el.open = true));
+  });
+  window.addEventListener('afterprint', () => {
+    opened.forEach((el) => (el.open = false));
+    opened = [];
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 3.75rem;
+  }
+
+  .brand {
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+
+  .nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: var(--space-1);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav a:hover {
+    color: var(--color-text);
+    background: var(--color-surface-muted);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  .print {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 2.5rem;
+    padding-inline: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .print:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  @media (max-width: 52rem) {
+    .bar {
+      flex-wrap: wrap;
+      padding-block: var(--space-2);
+    }
+
+    .nav {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    /* Icon-only on small screens; the label stays in the accessibility tree. */
+    .print span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .print {
+      width: 2.5rem;
+      padding: 0;
+      justify-content: center;
+    }
+  }
+</style>

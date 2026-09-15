@@ -1,0 +1,59 @@
+---
+import {
+  formatDuration,
+  formatPartialDate,
+  monthsBetweenInclusive,
+  toIsoDate,
+  type PartialDate,
+} from '../../domain/dates.ts';
+import type { DateRange } from '../../domain/model.ts';
+
+/**
+ * Renders a range with machine-readable `<time>` elements. Duration is optional
+ * because LinkedIn-style "3 yrs 2 mos" only makes sense for employment.
+ */
+interface Props {
+  range: DateRange;
+  /** Reference date for ongoing ranges (injected so rendering stays deterministic). */
+  now: PartialDate;
+  showDuration?: boolean;
+}
+
+const { range, now, showDuration = false } = Astro.props;
+const end = range.end ?? now;
+const duration = showDuration ? formatDuration(monthsBetweenInclusive(range.start, end)) : null;
+---
+
+<span class="range">
+  <time datetime={toIsoDate(range.start)}>{formatPartialDate(range.start)}</time>
+  <span aria-hidden="true"> - </span>
+  <span class="visually-hidden"> to </span>
+  {range.end ? (
+    <time datetime={toIsoDate(range.end)}>{formatPartialDate(range.end)}</time>
+  ) : (
+    <span>Present</span>
+  )}
+  {duration && <span class="duration">{duration}</span>}
+</span>
+
+<style>
+  .range {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.35em;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .duration {
+    color: var(--color-text-subtle);
+    white-space: nowrap;
+  }
+
+  .duration::before {
+    content: '·';
+    margin-inline-end: 0.35em;
+  }
+</style>

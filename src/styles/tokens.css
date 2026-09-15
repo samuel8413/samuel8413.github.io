@@ -1,0 +1,133 @@
+/*
+ * Design tokens. Two layers:
+ *  1. Primitive palette (never used directly by components).
+ *  2. Semantic roles that flip with the theme. Components only reference these.
+ *
+ * Theme resolution: the `data-theme` attribute wins (user choice, persisted in
+ * localStorage), otherwise `prefers-color-scheme` decides.
+ */
+:root {
+  /* Type */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --text-3xl: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.65;
+
+  /* Space (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  --container: 68rem;
+  --measure: 68ch;
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration: 160ms;
+
+  /* Primitive palette (warm neutrals + teal accent) */
+  --stone-50: #fafaf9;
+  --stone-100: #f5f5f4;
+  --stone-200: #e7e5e4;
+  --stone-300: #d6d3d1;
+  --stone-400: #a8a29e;
+  --stone-500: #78716c;
+  --stone-600: #57534e;
+  --stone-700: #44403c;
+  --stone-800: #292524;
+  --stone-900: #1c1917;
+  --stone-950: #0c0a09;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+
+  color-scheme: light dark;
+}
+
+/* Semantic roles: light */
+:root,
+:root[data-theme='light'] {
+  --color-bg: var(--stone-50);
+  --color-surface: #ffffff;
+  --color-surface-muted: var(--stone-100);
+  --color-border: var(--stone-200);
+  --color-border-strong: var(--stone-300);
+  --color-text: var(--stone-900);
+  --color-text-muted: var(--stone-600);
+  /* Same hue family as muted; kept ≥ 4.5:1 on every light surface (AA for small text). */
+  --color-text-subtle: #625d58;
+  --color-accent: var(--teal-700);
+  --color-accent-strong: var(--teal-800);
+  --color-accent-soft: rgb(15 118 110 / 0.1);
+  --color-on-accent: #ffffff;
+  --color-focus: var(--teal-600);
+  --shadow-sm: 0 1px 2px rgb(28 25 23 / 0.06);
+  --shadow-md: 0 8px 24px -12px rgb(28 25 23 / 0.25);
+  color-scheme: light;
+}
+
+/* Semantic roles: dark */
+:root[data-theme='dark'] {
+  --color-bg: var(--stone-950);
+  --color-surface: var(--stone-900);
+  --color-surface-muted: var(--stone-800);
+  --color-border: var(--stone-800);
+  --color-border-strong: var(--stone-700);
+  --color-text: var(--stone-100);
+  --color-text-muted: var(--stone-400);
+  --color-text-subtle: var(--stone-400);
+  --color-accent: var(--teal-400);
+  --color-accent-strong: var(--teal-300);
+  --color-accent-soft: rgb(45 212 191 / 0.12);
+  --color-on-accent: var(--stone-950);
+  --color-focus: var(--teal-300);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+/* System preference applies only when the user has not chosen explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: var(--stone-950);
+    --color-surface: var(--stone-900);
+    --color-surface-muted: var(--stone-800);
+    --color-border: var(--stone-800);
+    --color-border-strong: var(--stone-700);
+    --color-text: var(--stone-100);
+    --color-text-muted: var(--stone-400);
+    --color-text-subtle: var(--stone-400);
+    --color-accent: var(--teal-400);
+    --color-accent-strong: var(--teal-300);
+    --color-accent-soft: rgb(45 212 191 / 0.12);
+    --color-on-accent: var(--stone-950);
+    --color-focus: var(--teal-300);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}

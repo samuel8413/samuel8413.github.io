@@ -1,0 +1,62 @@
+---
+import { slugify } from '../../domain/slug.ts';
+
+/**
+ * Page section with the landmark wiring done once: `aria-labelledby` points at
+ * the heading, and the id doubles as the in-page navigation anchor.
+ */
+interface Props {
+  id: string;
+  title: string;
+  eyebrow?: string;
+  /** Visually de-emphasise (used for the earlier-career block). */
+  tone?: 'default' | 'muted';
+}
+
+const { id, title, eyebrow, tone = 'default' } = Astro.props;
+const headingId = slugify(id, 'title');
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['section', `tone-${tone}`]}>
+  <div class="container">
+    <header class="section-header">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id={headingId}>{title}</h2>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tone-muted {
+    background: var(--color-surface-muted);
+  }
+
+  .section-header {
+    margin-block-end: var(--space-6);
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-block-end: var(--space-2);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+  }
+
+  @media (max-width: 40rem) {
+    .section {
+      padding-block: var(--space-7);
+    }
+  }
+</style>

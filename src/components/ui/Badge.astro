@@ -1,0 +1,28 @@
+---
+interface Props {
+  /** Present when the badge should be an `<li>`; otherwise a `<span>`. */
+  as?: 'li' | 'span';
+  title?: string;
+}
+
+const { as: Tag = 'span', title } = Astro.props;
+---
+
+<Tag class="badge" title={title}>
+  <slot />
+</Tag>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+</style>
