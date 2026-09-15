@@ -1,0 +1,46 @@
+---
+/**
+ * Document metadata: title, description, canonical, Open Graph and Twitter cards.
+ * Canonical/OG URLs are only emitted when `site` is configured, so a local build
+ * never advertises a wrong origin.
+ */
+interface Props {
+  title: string;
+  description: string;
+  image?: { url: string; width: number; height: number; alt: string };
+  /** BCP 47 locale for Open Graph. */
+  locale?: string;
+  /** Keep secondary views (like the printable résumé) out of search results. */
+  noindex?: boolean;
+}
+
+const { title, description, image, locale = 'en_US', noindex = false } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const absoluteImage = image && Astro.site ? new URL(image.url, Astro.site).href : image?.url;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{canonical && <link rel="canonical" href={canonical.href} />}
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+
+<meta property="og:type" content="profile" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={locale} />
+{canonical && <meta property="og:url" content={canonical.href} />}
+{image && absoluteImage && (
+  <>
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt} />
+  </>
+)}
+
+<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{image && absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
+{image && <meta name="twitter:image:alt" content={image.alt} />}
