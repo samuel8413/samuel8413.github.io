@@ -1,0 +1,34 @@
+---
+/** Résumé section: small-caps heading with a hairline rule, never orphaned from its content. */
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const id = `resume-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<section class="rsection" aria-labelledby={id}>
+  <h2 id={id}>{title}</h2>
+  <div class="rbody">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .rsection {
+    margin-block-start: 0.22in;
+  }
+
+  h2 {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-block-end: 3pt;
+    border-bottom: 1px solid var(--rule);
+    margin-block-end: 7pt;
+    break-after: avoid;
+  }
+</style>

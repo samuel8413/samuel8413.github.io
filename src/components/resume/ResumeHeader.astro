@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import headshot from '../../assets/headshot.jpg';
+import type { Contact, Identity } from '../../domain/model.ts';
+
+interface Props {
+  identity: Identity;
+  contact: Contact;
+  showPhoto: boolean;
+}
+
+const { identity, contact, showPhoto } = Astro.props;
+
+const display = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+const channels = [
+  identity.location && { label: identity.location },
+  contact.email && { label: contact.email, href: `mailto:${contact.email}` },
+  contact.phone && { label: contact.phone, href: `tel:${contact.phone.replace(/\s+/g, '')}` },
+  contact.linkedin && { label: display(contact.linkedin), href: contact.linkedin },
+  contact.github && { label: display(contact.github), href: contact.github },
+  contact.website && { label: display(contact.website), href: contact.website },
+].filter((c): c is { label: string; href?: string } => Boolean(c));
+---
+
+<header class:list={['rheader', { 'with-photo': showPhoto }]}>
+  <div class="identity">
+    <h1>{identity.name}</h1>
+    <p class="headline">{identity.headline}</p>
+    <ul class="channels" role="list" aria-label="Contact">
+      {channels.map((c) => (
+        <li>{c.href ? <a href={c.href}>{c.label}</a> : c.label}</li>
+      ))}
+    </ul>
+  </div>
+  {showPhoto && (
+    <Image
+      src={headshot}
+      alt=""
+      width={96}
+      height={96}
+      densities={[1, 2]}
+      format="jpg"
+      class="photo"
+      loading="eager"
+    />
+  )}
+</header>
+
+<style>
+  .rheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.3in;
+    padding-block-end: 10pt;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  h1 {
+    font-size: 22pt;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  .headline {
+    margin-block-start: 4pt;
+    font-size: 10.5pt;
+    color: var(--ink-soft);
+    line-height: 1.3;
+    text-wrap: pretty;
+  }
+
+  .channels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.6em;
+    margin-block-start: 6pt;
+    padding: 0;
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+
+  .channels li + li::before {
+    content: '·';
+    margin-inline-end: 0.6em;
+    color: var(--ink-faint);
+  }
+
+  /* Touch targets need 24px on screen; paper keeps the tight line. */
+  @media screen {
+    .channels {
+      row-gap: 2px;
+    }
+
+    .channels a {
+      display: inline-block;
+      padding-block: 5px;
+    }
+  }
+
+  .photo {
+    flex: none;
+    width: 0.95in;
+    height: 0.95in;
+    border-radius: 3pt;
+    object-fit: cover;
+  }
+</style>

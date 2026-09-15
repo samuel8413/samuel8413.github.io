@@ -1,0 +1,137 @@
+---
+import type { PartialDate } from '../../domain/dates.ts';
+import type { CompanyTenure } from '../../domain/model.ts';
+import DateRange from '../ui/DateRange.astro';
+
+/**
+ * One employer on paper. `detailed` renders bullets; otherwise a single line,
+ * which keeps older roles from pushing the résumé onto a third page.
+ */
+interface Props {
+  tenure: CompanyTenure;
+  now: PartialDate;
+  detailed: boolean;
+}
+
+const { tenure, now, detailed } = Astro.props;
+const [first] = tenure.positions;
+const single = tenure.positions.length === 1;
+---
+
+<article class:list={['rtenure', { compact: !detailed }]}>
+  <div class="row">
+    <h3>
+      {single && first ? <span class="title">{first.title}</span> : null}
+      <span class="company">{single ? `, ${tenure.company}` : tenure.company}</span>
+    </h3>
+    <p class="dates">
+      <DateRange range={tenure.range} now={now} showDuration={detailed} />
+    </p>
+  </div>
+  {first?.location && detailed && <p class="location">{first.location}</p>}
+
+  {detailed &&
+    tenure.positions.map((position) => (
+      <div class="position">
+        {!single && (
+          <div class="row sub">
+            <h4 class="title">{position.title}</h4>
+            <p class="dates">
+              <DateRange range={position.range} now={now} />
+            </p>
+          </div>
+        )}
+        {position.summary && <p class="summary">{position.summary}</p>}
+        {position.highlights.length > 0 && (
+          <ul>
+            {position.highlights.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
+  {!detailed && !single && <p class="roles">{tenure.positions.map((p) => p.title).join(' · ')}</p>}
+</article>
+
+<style>
+  /* Long tenures may span pages; what must never split is a bullet or a heading from its first line. */
+  .row,
+  .location,
+  li {
+    break-inside: avoid;
+  }
+
+  .row {
+    break-after: avoid;
+  }
+
+  .rtenure + .rtenure {
+    margin-block-start: 9pt;
+  }
+
+  .rtenure.compact + .rtenure.compact {
+    margin-block-start: 3pt;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25in;
+  }
+
+  h3 {
+    font-size: 10pt;
+    font-weight: 400;
+  }
+
+  .title {
+    font-weight: 700;
+  }
+
+  .company {
+    color: var(--ink);
+  }
+
+  h3 > .company:only-child {
+    font-weight: 700;
+  }
+
+  .dates {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .location {
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+
+  .position + .position {
+    margin-block-start: 5pt;
+  }
+
+  .sub {
+    margin-block-start: 4pt;
+  }
+
+  h4 {
+    font-size: 10pt;
+    font-weight: 650;
+  }
+
+  .summary {
+    margin-block-start: 2pt;
+    color: var(--ink-soft);
+  }
+
+  ul {
+    margin-block-start: 3pt;
+  }
+
+  .roles {
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+</style>

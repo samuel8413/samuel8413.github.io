@@ -1,0 +1,90 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/** Screen-only controls for the résumé view. Hidden when printing. */
+interface Props {
+  homeHref: string;
+}
+
+const { homeHref } = Astro.props;
+---
+
+<nav class="toolbar no-print" aria-label="Résumé actions">
+  <div class="inner">
+    <a href={homeHref} class="back">
+      Back to the full profile
+    </a>
+    <p class="hint">Use "Save as PDF" in the print dialog for a shareable file.</p>
+    <button type="button" class="print" data-print-trigger>
+      <Icon name="printer" size={18} />
+      Print or save as PDF
+    </button>
+  </div>
+</nav>
+
+<script>
+  const trigger = () => window.print();
+
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-print-trigger]')
+    .forEach((button) => button.addEventListener('click', trigger));
+
+  // Deep link from the site header: /cv/?print opens the dialog once the page is ready.
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('print')) {
+    params.delete('print');
+    const clean = `${window.location.pathname}${params.size ? `?${params}` : ''}${window.location.hash}`;
+    window.history.replaceState(null, '', clean);
+    window.addEventListener('load', trigger, { once: true });
+  }
+</script>
+
+<style>
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .inner {
+    width: min(100% - 2 * var(--space-5), 8.5in);
+    margin-inline: auto;
+    min-height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .hint {
+    color: var(--color-text-muted);
+  }
+
+  .print {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.5rem;
+    padding-inline: var(--space-4);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .print:hover {
+    background: var(--color-accent-strong);
+    border-color: var(--color-accent-strong);
+  }
+
+  @media (max-width: 40rem) {
+    .hint {
+      display: none;
+    }
+  }
+</style>

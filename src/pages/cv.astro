@@ -1,0 +1,23 @@
+---
+import ResumeDocument from '../components/resume/ResumeDocument.astro';
+import ResumeToolbar from '../components/resume/ResumeToolbar.astro';
+import { buildDate, profile, siteConfig } from '../data/profile.ts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/resume.css';
+
+/**
+ * Printable résumé. Same data as the home page, laid out as a document.
+ * Not indexed: the home page is the canonical presentation.
+ */
+const title = `${profile.identity.name} | Résumé`;
+const description = `Printable résumé of ${profile.identity.name}, ${profile.identity.headline}.`;
+---
+
+<BaseLayout title={title} description={description} author={profile.identity.name} noindex>
+  <div class="resume-shell">
+    <ResumeToolbar homeHref={import.meta.env.BASE_URL} />
+    <main id="main">
+      <ResumeDocument profile={profile} options={siteConfig.resume} now={buildDate} />
+    </main>
+  </div>
+</BaseLayout>

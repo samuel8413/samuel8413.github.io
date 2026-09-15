@@ -1,0 +1,125 @@
+/*
+ * Printable résumé. Sizes are in points/inches so the screen preview and the
+ * printed page are the same document. The "paper" carries its own token
+ * overrides: it is always light, regardless of the site theme.
+ */
+
+.paper {
+  --paper-width: 8.5in;
+  --paper-pad: 0.6in;
+  --ink: #111;
+  --ink-soft: #444;
+  --ink-faint: #767676;
+  --rule: #d4d4d4;
+
+  /* Scoped overrides so shared components (DateRange) render in print colours. */
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-soft);
+  --color-text-subtle: var(--ink-faint);
+  --color-accent: var(--ink);
+  --color-accent-strong: var(--ink);
+  --text-sm: 9pt;
+
+  color-scheme: light;
+  width: var(--paper-width);
+  max-width: 100%;
+  margin-inline: auto;
+  padding: var(--paper-pad);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 10pt;
+  line-height: 1.34;
+  orphans: 3;
+  widows: 3;
+}
+
+.paper a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.paper a:hover {
+  text-decoration: underline;
+}
+
+.paper h1,
+.paper h2,
+.paper h3,
+.paper h4 {
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.paper ul {
+  margin: 0;
+  padding-inline-start: 1.1em;
+}
+
+.paper li {
+  margin-block-start: 0.12em;
+}
+
+.paper li::marker {
+  color: var(--ink-faint);
+}
+
+@media screen {
+  .resume-shell {
+    min-height: 100dvh;
+    background: var(--color-surface-muted);
+    padding-block-end: var(--space-8);
+  }
+
+  .paper {
+    margin-block-start: var(--space-6);
+    box-shadow: var(--shadow-md);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 8.5in) {
+    .resume-shell {
+      padding-block-end: var(--space-6);
+    }
+
+    .paper {
+      margin-block-start: 0;
+      --paper-pad: 1.25rem;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  }
+}
+
+@media print {
+  @page {
+    size: auto;
+    margin: 0.5in 0.55in;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .resume-shell {
+    padding: 0;
+    background: none;
+  }
+
+  .paper {
+    width: auto;
+    max-width: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a[href] {
+    color: inherit;
+  }
+}

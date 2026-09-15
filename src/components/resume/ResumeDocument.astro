@@ -1,0 +1,258 @@
+---
+import { formatPartialDate, type PartialDate } from '../../domain/dates.ts';
+import type { Profile } from '../../domain/model.ts';
+import type { SiteConfig } from '../../domain/schema/site-config.schema.ts';
+import DateRange from '../ui/DateRange.astro';
+import ResumeHeader from './ResumeHeader.astro';
+import ResumeSection from './ResumeSection.astro';
+import ResumeTenure from './ResumeTenure.astro';
+
+/**
+ * The résumé as a document: one column, classic order, dense but readable.
+ * Same domain model as the web page; different presentation decisions,
+ * governed by `siteConfig.resume`.
+ */
+interface Props {
+  profile: Profile;
+  options: SiteConfig['resume'];
+  now: PartialDate;
+}
+
+const { profile, options, now } = Astro.props;
+const {
+  identity,
+  contact,
+  experience,
+  skillGroups,
+  education,
+  languages,
+  certifications,
+  honors,
+  publications,
+  projects,
+} = profile;
+
+const summary = options.summary ?? identity.summaryParagraphs[0];
+const earlierRoles = experience.earlier.flatMap((t) =>
+  t.positions.map((p) => ({ ...p, company: t.company })),
+);
+---
+
+<article class="paper" lang="en">
+  <ResumeHeader identity={identity} contact={contact} showPhoto={options.showPhoto} />
+
+  {summary && (
+    <ResumeSection title="Summary">
+      <p class="summary">{summary}</p>
+    </ResumeSection>
+  )}
+
+  <ResumeSection title="Experience">
+    {experience.primary.map((tenure, index) => (
+      <ResumeTenure tenure={tenure} now={now} detailed={index < options.detailedTenures} />
+    ))}
+  </ResumeSection>
+
+  {skillGroups.length > 0 && (
+    <ResumeSection title="Skills">
+      <dl class="skills">
+        {skillGroups.map((group) => (
+          <div class="skill-row">
+            <dt>{group.name}</dt>
+            <dd>{group.skills.map((s) => s.label).join(', ')}</dd>
+          </div>
+        ))}
+      </dl>
+    </ResumeSection>
+  )}
+
+  {(education.length > 0 || languages.length > 0) && (
+    <ResumeSection title="Education and languages">
+      {education.map((entry) => (
+        <div class="row">
+          <p>
+            <strong>{entry.degree}</strong>, {entry.school}
+          </p>
+          <p class="dates">
+            <DateRange range={entry.range} now={now} />
+          </p>
+        </div>
+      ))}
+      {languages.length > 0 && (
+        <p class="languages">
+          {languages.map((l, i) => (
+            <>
+              {i > 0 && <span class="sep"> · </span>}
+              <strong>{l.name}</strong> ({l.proficiency})
+            </>
+          ))}
+        </p>
+      )}
+    </ResumeSection>
+  )}
+
+  {options.include.certifications && (certifications.length > 0 || honors.length > 0) && (
+    <ResumeSection title="Certifications and honors">
+      <ul class="two-col" role="list">
+        {certifications.map((c) => (
+          <li>
+            {c.url ? <a href={c.url}>{c.name}</a> : c.name}
+            <span class="meta">
+              , {c.authority}, {formatPartialDate(c.issuedOn)}
+            </span>
+          </li>
+        ))}
+        {honors.map((h) => (
+          <li>
+            {h.title}
+            <span class="meta">, {formatPartialDate(h.issuedOn)}</span>
+            {h.description && <span class="meta">. {h.description}</span>}
+          </li>
+        ))}
+      </ul>
+    </ResumeSection>
+  )}
+
+  {options.include.publications && publications.length > 0 && (
+    <ResumeSection title="Writing">
+      <ul class="plain" role="list">
+        {publications.map((p) => (
+          <li>
+            {p.url ? <a href={p.url}>{p.name}</a> : p.name}
+            <span class="meta">
+              , {p.publisher}, {formatPartialDate(p.publishedOn)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </ResumeSection>
+  )}
+
+  {options.include.projects && projects.length > 0 && (
+    <ResumeSection title="Projects">
+      {projects.map((p) => (
+        <div class="project">
+          <div class="row">
+            <p>
+              <strong>{p.url ? <a href={p.url}>{p.title}</a> : p.title}</strong>
+            </p>
+            <p class="dates">
+              <DateRange range={p.range} now={now} />
+            </p>
+          </div>
+          <p class="meta">{p.description}</p>
+        </div>
+      ))}
+    </ResumeSection>
+  )}
+
+  {options.include.earlierCareer && earlierRoles.length > 0 && (
+    <ResumeSection title="Earlier experience">
+      <ul class="plain" role="list">
+        {earlierRoles.map((role) => (
+          <li class="row">
+            <span>
+              <strong>{role.title}</strong>, {role.company}
+            </span>
+            <span class="dates">
+              <DateRange range={role.range} now={now} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </ResumeSection>
+  )}
+</article>
+
+<style>
+  .summary {
+    text-wrap: pretty;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25in;
+    break-inside: avoid;
+  }
+
+  .skill-row,
+  .plain li,
+  .project {
+    break-inside: avoid;
+  }
+
+  .dates {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .skills {
+    margin: 0;
+    display: grid;
+    gap: 2pt;
+  }
+
+  .skill-row {
+    display: grid;
+    grid-template-columns: 1.6in 1fr;
+    gap: 0.15in;
+  }
+
+  dt {
+    font-weight: 650;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .languages {
+    margin-block-start: 4pt;
+  }
+
+  .sep {
+    color: var(--ink-faint);
+  }
+
+  .plain {
+    padding: 0;
+    list-style: none;
+  }
+
+  .plain li {
+    margin-block-start: 2pt;
+  }
+
+  .two-col {
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 0.3in;
+  }
+
+  .two-col li {
+    break-inside: avoid;
+    margin-block-start: 2pt;
+  }
+
+  .meta {
+    color: var(--ink-soft);
+  }
+
+  .project + .project {
+    margin-block-start: 5pt;
+  }
+
+  @media (max-width: 6in) {
+    .skill-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .two-col {
+      columns: 1;
+    }
+  }
+</style>
