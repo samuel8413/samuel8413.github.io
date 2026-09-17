@@ -28,6 +28,11 @@
       "value": "~60",
       "label": "technical interviews conducted",
       "detail": "Across Infosys and Wizeline, plus mentoring about five junior developers."
+    },
+    {
+      "value": "2 pages",
+      "label": "migrated to the Next.js App Router",
+      "detail": "Barron's and MarketWatch moved off the Pages Router, using the AI-guided migration tool I built so several engineers could work in parallel."
     }
   ],
   "skills": {
