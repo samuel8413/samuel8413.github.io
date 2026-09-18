@@ -183,6 +183,16 @@
   ],
   "certifications": [
     {
+      "name": "OWASP Top 10 Web Security",
+      "authority": "Wizeline",
+      "started_on": "Sep 2026"
+    },
+    {
+      "name": "Secure Development with AI",
+      "authority": "Wizeline",
+      "started_on": "Sep 2026"
+    },
+    {
       "name": "AI Fundamentals (12 CPE)",
       "authority": "DataCamp",
       "started_on": "Apr 2026",
