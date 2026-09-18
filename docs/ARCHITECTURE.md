@@ -74,7 +74,7 @@ Landmarks (`banner`, `nav`, `main`, `contentinfo`), one `h1`, sections labelled 
 
 ### SEO
 
-Title template, description trimmed to a word boundary under 160 characters, canonical URL, Open Graph and Twitter cards with a fixed-size social image, schema.org `Person` JSON-LD built from the domain model, sitemap, robots.txt. Canonical and Open Graph URLs are only emitted when a site URL is configured, so a local build never advertises a wrong origin.
+Title template, description trimmed to a word boundary under 160 characters, canonical URL, Open Graph and Twitter cards with a fixed-size social image, schema.org `Person` JSON-LD built from the domain model, sitemap, robots.txt. Canonical and Open Graph URLs are only emitted when a site URL is configured, so a local build never advertises a wrong origin. The same rule applies to the `Sitemap` directive in `robots.txt`: it is a fully-qualified URL by specification, so without a site URL it is omitted rather than written relative (which crawlers and Lighthouse reject).
 
 ### Security
 

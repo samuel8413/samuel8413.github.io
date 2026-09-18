@@ -27,7 +27,12 @@ test('embeds valid schema.org Person JSON-LD', async ({ page }) => {
 test('serves robots.txt and a 404 page', async ({ page, request }) => {
   const robots = await request.get('/robots.txt');
   expect(robots.ok()).toBe(true);
-  expect(await robots.text()).toContain('Sitemap:');
+  const body = await robots.text();
+  expect(body).toContain('User-agent: *');
+  // Builds without SITE_URL carry no Sitemap line; when present it must be absolute.
+  for (const [, url] of body.matchAll(/^Sitemap:\s*(.*)$/gm)) {
+    expect(url).toMatch(/^https?:\/\/\S+$/);
+  }
 
   const missing = await page.goto('/definitely-not-here');
   expect(missing?.status()).toBe(404);
